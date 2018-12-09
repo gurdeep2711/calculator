@@ -1,0 +1,23 @@
+page-home {
+  .s-card {
+    position: relative;
+    overflow: visible;
+    margin: 0.5rem;
+    width: calc(100% - 1rem);
+
+    .s-badge {
+      position: absolute;
+      top: -1rem;
+      right: -1rem;
+      font-size: 2rem;
+    }
+
+    .s-content {
+      padding: 0.5rem;
+
+      .s-price {
+        font-size: 1.75rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      CALCULATOR APP
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <div margin-bottom text-right>
+    <ion-item>
+      <ion-label>List:</ion-label>
+      <ion-toggle [(ngModel)]="toogleShifts"></ion-toggle>
+    </ion-item>
+  </div>
+  <div *ngIf="toogleShifts" margin-horizontal>
+    <ion-segment [(ngModel)]="CURRUNT_SHIFT" (ionChange)="restItem()">
+      <ion-segment-button [value]="item.name" *ngFor="let item of SHIFTS" text-capitalize>
+        {{item.name}}
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4 *ngFor="let item of ITEMS_LIST[CURRUNT_SHIFT]">
+        <ion-card class="s-card" (click)="addNewOrder(item)" (press)="longPressEvent(item)">
+          <ion-badge class="s-badge" *ngIf="item.qty">{{item.qty}}</ion-badge>
+          <ion-card-content class="s-content">
+            <img [src]="item.img" [alt]="item.name">
+            <div class="s-price" text-center>{{item.price}}</div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
