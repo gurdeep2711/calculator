@@ -9,6 +9,11 @@ import { HomePage } from '../pages/home/home';
 import { LongPressComponent } from '../components/long-press/long-press';
 import { FormsModule } from '@angular/forms';
 
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environments';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { HomeProvider } from '../providers/home/home';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -18,6 +23,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     FormsModule
   ],
   bootstrap: [IonicApp],
@@ -29,7 +36,8 @@ import { FormsModule } from '@angular/forms';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    HomeProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, ToastController } from 'ionic-angular';
 import { ITEMS, SHIFTS } from '../../models/items';
 import { LongPressComponent } from '../../components/long-press/long-press';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { from } from 'rxjs/observable/from';
+import { HomeProvider } from '../../providers/home/home';
 
 @Component({
   selector: 'page-home',
@@ -21,7 +22,8 @@ export class HomePage implements OnInit, OnDestroy {
   private previousShit = 'morning';
   private _subscription = new Subject();
 
-  constructor(public navCtrl: NavController, private modalCtrl: ModalController) { }
+  constructor(public navCtrl: NavController, private modalCtrl: ModalController,
+    private homeProv: HomeProvider, private toastCtrl: ToastController) { }
 
   ngOnInit(): void {
     this._subscription.subscribe(() => {
@@ -53,9 +55,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   clearAllOrders(): void {
-    this.ITEMS_LIST[this.CURRUNT_SHIFT].forEach(item => {
-      item.qty = 0;
-    });
+    this.restAll(this.CURRUNT_SHIFT);
     this._subscription.next();
   }
 
@@ -68,14 +68,35 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   restItem(): void {
-    this.ITEMS_LIST[this.previousShit].forEach(item => {
-      item.qty = 0;
-    });
+    this.restAll(this.previousShit);
     this.previousShit = this.CURRUNT_SHIFT;
     this._subscription.next();
   }
 
   checkoutOrder(): void {
-    console.log(this.finalOrder);
+    let data = {
+      total: this.totalAmount,
+      orders: this.finalOrder,
+      timeStamp: new Date()
+    }
+    this.homeProv.saveOrders(this.CURRUNT_SHIFT, data).then(() => {
+      const toast = this.toastCtrl.create({
+        message: 'Thanks!, Payment received successfully.',
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+      toast.present();
+      this.restAll(this.CURRUNT_SHIFT);
+      this._subscription.next();
+    })
+  }
+
+  private restAll(shift): void {
+    this.ITEMS_LIST[shift].forEach(item => {
+      item.qty = 0;
+    });
   }
 }
