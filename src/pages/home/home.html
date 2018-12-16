@@ -13,6 +13,7 @@
       <ion-toggle [(ngModel)]="toogleShifts"></ion-toggle>
     </ion-item>
   </div>
+
   <div *ngIf="toogleShifts" margin-horizontal>
     <ion-segment [(ngModel)]="CURRUNT_SHIFT" (ionChange)="restItem()">
       <ion-segment-button [value]="item.name" *ngFor="let item of SHIFTS" text-capitalize>
@@ -22,8 +23,31 @@
   </div>
 
   <ion-grid>
+    <ion-row *ngIf="totalAmount">
+      <ion-col>
+        <ion-card class="s-card">
+          <ion-card-content>
+            <ion-card-title>
+              Total: {{totalAmount | number}}
+            </ion-card-title>
+            <div text-right>
+              <button ion-button outline item-end icon-start small (click)="clearAllOrders()">
+                <ion-icon name="trash"></ion-icon>
+                Clear All
+              </button>
+              <button ion-button item-end icon-start small (click)="checkoutOrder()">
+                <ion-icon name="done-all"></ion-icon>
+                Done
+              </button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
     <ion-row>
       <ion-col col-4 *ngFor="let item of ITEMS_LIST[CURRUNT_SHIFT]">
+        <ion-icon class="s-badge-clear" *ngIf="item.qty" (click)="clearOrder(item)" name="close-circle"></ion-icon>
         <ion-card class="s-card" (click)="addNewOrder(item)" (press)="longPressEvent(item)">
           <ion-badge class="s-badge" *ngIf="item.qty">{{item.qty}}</ion-badge>
           <ion-card-content class="s-content">

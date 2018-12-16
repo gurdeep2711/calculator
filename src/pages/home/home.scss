@@ -1,4 +1,10 @@
 page-home {
+  * {
+    position: relative;
+  }
+
+  ;
+
   .s-card {
     position: relative;
     overflow: visible;
@@ -10,6 +16,8 @@ page-home {
       top: -1rem;
       right: -1rem;
       font-size: 2rem;
+      border-radius: 2rem;
+      z-index: 9;
     }
 
     .s-content {
@@ -19,5 +27,14 @@ page-home {
         font-size: 1.75rem;
       }
     }
+  }
+
+  .s-badge-clear {
+    position: absolute;
+    color: red;
+    bottom: 0;
+    left: 0;
+    font-size: 3.5rem;
+    z-index: 9;
   }
 }
