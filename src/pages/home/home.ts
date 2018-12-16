@@ -61,10 +61,8 @@ export class HomePage implements OnInit, OnDestroy {
 
   longPressEvent(item): void {
     let modal = this.modalCtrl.create(LongPressComponent, { data: item });
-    modal.onDidDismiss(data => {
-      if (data) {
-        this._subscription.next();
-      }
+    modal.onDidDismiss(() => {
+      this._subscription.next();
     });
     modal.present();
   }

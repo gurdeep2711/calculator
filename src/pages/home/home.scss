@@ -13,6 +13,7 @@ page-home {
 
     .s-badge {
       position: absolute;
+      background-color: #32db64;
       top: -1rem;
       right: -1rem;
       font-size: 2rem;
@@ -31,10 +32,24 @@ page-home {
 
   .s-badge-clear {
     position: absolute;
-    color: red;
-    bottom: 0;
+    color: #32db64;
+    bottom: 1rem;
     left: 0;
     font-size: 3.5rem;
     z-index: 9;
+    background: red;
+    border-radius: 13rem;
+    line-height: 0.5;
+  }
+
+  .s-badge-total {
+    font-size: 5rem;
+    background-color: white;
+    color: #488aff;
+  }
+
+  .active {
+    background-color: #488aff;
+    color: white;
   }
 }
