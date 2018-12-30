@@ -74,24 +74,44 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   checkoutOrder(): void {
+    //If totalamount > 0 then only order should be placed
+   if(this.totalAmount)
+   {    
     let data = {
       total: this.totalAmount,
       orders: this.finalOrder,
       timeStamp: new Date()
     }
+
+    const toast = this.toastCtrl.create({
+      message: 'Thanks!, Payment received successfully.',
+      duration: 3000,
+      position: 'top'
+    });
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+    toast.present();
+
     this.homeProv.saveOrders(this.CURRUNT_SHIFT, data).then(() => {
-      const toast = this.toastCtrl.create({
-        message: 'Thanks!, Payment received successfully.',
-        duration: 3000,
-        position: 'bottom'
-      });
-      toast.onDidDismiss(() => {
-        console.log('Dismissed toast');
-      });
-      toast.present();
-      this.restAll(this.CURRUNT_SHIFT);
-      this._subscription.next();
+      //Save data on server
+      
     })
+    this.restAll(this.CURRUNT_SHIFT);
+    this._subscription.next();
+   }
+   else
+   {
+    const toast = this.toastCtrl.create({
+      message: 'Please add itmes before placing the order.',
+      duration: 3000,
+      position: 'top'
+    });
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+    toast.present();
+   }
   }
 
   private restAll(shift): void {

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      CALCULATOR APP
+      CALCULATOR
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -23,11 +23,18 @@
   </div>
 
   <ion-grid>
-    <ion-row *ngIf="totalAmount">
+    <!-- <ion-row *ngIf="totalAmount"> -->
+    <ion-row>
       <ion-col>
         <ion-card class="s-card active">
           <ion-card-content text-center>
-            <ion-badge class="s-badge-total">{{totalAmount | number}}</ion-badge>
+            <div *ngIf="totalAmount; else notShow">
+                <ion-badge class="s-badge-total">{{totalAmount | number}}</ion-badge>  
+            </div>
+            <ng-template #notShow>
+                <ion-badge class="s-badge-total">0</ion-badge>
+            </ng-template>
+            <!-- <ion-badge class="s-badge-total">{{totalAmount | number}}</ion-badge> -->
             <div margin-top>
               <button ion-button item-end icon-start small color="danger" (click)="clearAllOrders()">
                 <ion-icon name="trash"></ion-icon>
