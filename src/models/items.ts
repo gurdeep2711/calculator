@@ -110,7 +110,7 @@ export const ITEMS = {
         {
             id: 9,
             name: "Raita",
-            price: 0,
+            price: 10,
             img: 'assets/imgs/17.png',
             qty: 0
         },
