@@ -11,7 +11,7 @@
         <ion-item>
           <ion-label floating>QTY</ion-label>
           <ion-input type="tel" name="qty" minlength="1" maxlength="3" pattern="[0-9]+" [(ngModel)]="currentQty" #qty="ngModel"
-            required></ion-input>
+          autofocus required></ion-input>
         </ion-item>
         <div class="s-errors" *ngIf="qty.invalid && (qty.dirty || qty.touched)">
           <div *ngIf="qty.errors['pattern']">
