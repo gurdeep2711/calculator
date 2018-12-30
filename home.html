@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      CALCULATOR
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <div margin-bottom text-right>
+    <ion-item>
+      <ion-label text-capitalize>{{CURRUNT_SHIFT}}:</ion-label>
+      <ion-toggle [(ngModel)]="toogleShifts"></ion-toggle>
+    </ion-item>
+  </div>
+
+  <div *ngIf="toogleShifts" margin-horizontal>
+    <ion-segment [(ngModel)]="CURRUNT_SHIFT" (ionChange)="restItem()">
+      <ion-segment-button [value]="item.name" *ngFor="let item of SHIFTS" text-capitalize>
+        {{item.name}}
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <ion-grid>
+    <!-- <ion-row *ngIf="totalAmount"> -->
+    <ion-row>
+      <ion-col>
+        <ion-card class="s-card active">
+          <ion-card-content text-center>
+            <div *ngIf="totalAmount; else notShow">
+                <ion-badge class="s-badge-total">{{totalAmount | number}}</ion-badge>  
+            </div>
+            <ng-template #notShow>
+                <ion-badge class="s-badge-total">0</ion-badge>
+            </ng-template>
+            <!-- <ion-badge class="s-badge-total">{{totalAmount | number}}</ion-badge> -->
+            <div margin-top>
+              <button ion-button item-end icon-start small color="danger" (click)="clearAllOrders()">
+                <ion-icon name="trash"></ion-icon>
+                Cancel
+              </button>
+              <button ion-button item-end icon-start small color="secondary" (click)="checkoutOrder()">
+                <ion-icon name="done-all"></ion-icon>
+                Done
+              </button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-4 *ngFor="let item of ITEMS_LIST[CURRUNT_SHIFT]">
+        <ion-icon class="s-badge-clear" *ngIf="item.qty" (click)="clearOrder(item)" name="close-circle"></ion-icon>
+        <ion-card class="s-card" [class.active]="item.qty > 0" (click)="addNewOrder(item)" (press)="longPressEvent(item)">
+          <ion-badge class="s-badge" *ngIf="item.qty">{{item.qty}}</ion-badge>
+          <ion-card-content class="s-content">
+            <img [src]="item.img" [alt]="item.name">
+            <div class="s-price" text-center>{{item.price}}</div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
