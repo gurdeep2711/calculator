@@ -24,6 +24,7 @@ import { HomeProvider } from '../providers/home/home';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     FormsModule
   ],
