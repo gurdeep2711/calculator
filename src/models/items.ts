@@ -161,7 +161,7 @@ export const ITEMS = {
         {
             id: 5,
             name: "Burger",
-            price: 6,
+            price: 16,
             img: 'assets/imgs/4.png',
             qty: 0
         },
